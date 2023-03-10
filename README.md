@@ -8,17 +8,14 @@ A simple blog that allows admin to create, edit, and delete posts ; and enable u
 
   * if user attempts to enter pages with  __login_required__ decorator
   
-    * lead to login page  ->  logged in -> redirect back to where user initially wanted to visit  (Notes: [next](Notes))
+    * lead to login page  ->  logged in -> redirect back to where user initially wanted to visit (Please check Notes section at the bottom)
     
       * home page 
-        ![nolog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/homepage(nolog).png)
-        
+        ![nolog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/homepage(nolog).png)     
       * post
         ![post nolog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/post.png)
-       
       * posting a comment
         ![comment nolog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/comment(nolog).png)
-      
       * about page
         ![about nolog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/aboutpage(nolog).png)
         
@@ -38,10 +35,8 @@ A simple blog that allows admin to create, edit, and delete posts ; and enable u
   * user ([login_required](https://flask-login.readthedocs.io/en/latest/_modules/flask_login/utils/#login_required))   
     * post
       ![postuserlog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/homepage(userlog).png)
-       
     * posting a comment
-      ![commentusrelog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/leavedcomment(userlog).png)
-      
+      ![commentusrelog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/leavedcomment(userlog).png) 
     * about page
       ![aboutuserlog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/aboutpage(userlog).png)
       
