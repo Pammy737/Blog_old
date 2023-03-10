@@ -57,7 +57,7 @@ class BlogPost(db.Model):
     # author = db.Column(db.String(250), nullable=False)
 
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    author = relationship("User", back_populates="post")  # 命名就命名 此class所需要的data
+    author = relationship("User", back_populates="post")  
 
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
@@ -181,7 +181,6 @@ def show_post(post_id):
                         use_ssl=False,
                         base_url=None)
     comment_form = CommentForm()
-    # not allowing non-users to browse the post -> change it to not allowing non-user to comment
     if comment_form.validate_on_submit():
         if not current_user.is_anonymous:
             print(comment_form.comment.data)
@@ -195,7 +194,7 @@ def show_post(post_id):
             return redirect(url_for("show_post", post_id=post_id))
         else:
             flash("Please Log in before leaving a comment!")
-            return redirect(url_for("login", next=request.url))  # 將此做為參數傳遞
+            return redirect(url_for("login", next=request.url))
     return render_template("post.html", post=requested_post, form=comment_form, required_comment=required_comment)
 
 
