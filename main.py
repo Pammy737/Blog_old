@@ -139,7 +139,7 @@ def login():
                 if next:
                     print(next)
                     return redirect(next)
-                # the ones with self-created (@admin_only)
+                # the ones not using login_required
                 elif next_url:
                     print(next_url)
                     return redirect(next_url)
