@@ -79,9 +79,6 @@ A simple blog that allows admin to create, edit, and delete posts ; and enable u
 
 ## Notes
 
-* Why ```back_populate``` instead of  ```backref```?
-  *  more 
-
 * ```next``` parameter
   * ex - about page
   
