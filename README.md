@@ -8,8 +8,8 @@ A simple blog that allows admin to create, edit, and delete posts ; and enable u
 
   * if user attempts to enter pages with  __login_required__ decorator
   
-    * lead to login page  ->  logged in -> redirect back to where user initially wanted to visit (Please check Notes section at the bottom)
-    
+    * lead to login page  ->  logged in -> redirect back to where user initially wanted to visit [(Notes: next)](https://github.com/Pammy737/The_Blog/blob/main/README.md#notes)    
+      
       * home page 
         ![nolog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/homepage(nolog).png)     
       * post
@@ -21,7 +21,7 @@ A simple blog that allows admin to create, edit, and delete posts ; and enable u
         
 * User logged in
 
-  * admin (admin_required) (first user registered) 
+  * admin (admin_only) (first user registered) 
     * home
       ![adminhome](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/homepage(adminlog).png)
     * post
@@ -32,22 +32,23 @@ A simple blog that allows admin to create, edit, and delete posts ; and enable u
       ![adminpost](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/editpost(adminlog).png)
       
     
-  * user ([login_required](https://flask-login.readthedocs.io/en/latest/_modules/flask_login/utils/#login_required))   
+  * user   
     * post
       ![postuserlog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/homepage(userlog).png)
-    * posting a comment
+    * posted a comment
       ![commentusrelog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/leavedcomment(userlog).png) 
     * about page
       ![aboutuserlog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/aboutpage(userlog).png)
       
 * if email isn't registered
+  
   * register page -> login page
-    ![aboutuserlog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/aboutpage(userlog).png)
+    ![registerlog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/register(nonuser).png)
 
 
 
 ## Techniques & Tools
-* Frontend: starting code from [blog-project](https://github.com/angelabauer/Flask-Blog-Project), which is based on the theme [clean_blog](https://startbootstrap.com/theme/clean-blog)
+* Frontend: starting code based on [blog-project](https://github.com/angelabauer/Flask-Blog-Project) and the theme [clean_blog](https://startbootstrap.com/theme/clean-blog)
  
 * Backend: Flask, SQLAlchemy, SQLite 
   * Flask
