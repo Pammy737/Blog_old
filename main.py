@@ -1,3 +1,4 @@
+import flask_login
 from flask import Flask, render_template, redirect, url_for, flash, request, abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
@@ -116,32 +117,31 @@ def register():
         )
         db.session.add(new_user)
         db.session.commit()
-
-        return redirect(url_for('login'))
+        next_url=request.args.get("next_url")
+        print(f"I am on register page, url:{next_url}")
+        return redirect(url_for('login', next_url=next_url))
     return render_template("register.html", form=form)
 
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
-    form = LoginForm(request.values, next=request.args.get("next"))
+    form = LoginForm()
+    next = request.args.get("next")
+    next_url = request.args.get("next_url")
     if form.validate_on_submit():
         user_login = User.query.filter_by(email=form.email.data).first()
-        print(user_login)
         if user_login:
             pwd = form.password.data
-            print(pwd)
             if check_password_hash(pwhash=user_login.password, password=pwd):
                 flash("You've logged in!")
                 login_user(user=user_login)
-                next = request.args.get("next")
-                next_url = form.next.data
+                print(f"I am next {next}")
+                print(f"I am next_url {next_url}")
                 # the ones with @login_required
                 if next:
-                    print(next)
                     return redirect(next)
                 # the ones not using login_required
                 elif next_url:
-                    print(next_url)
                     return redirect(next_url)
                 return redirect(url_for('home'))
             else:
@@ -149,7 +149,7 @@ def login():
                 return redirect(url_for('login'))
         else:
             flash("You're not our member yet! Please sign up first!")
-            return redirect(url_for('register'))
+            return redirect(url_for('register', next_url=request.url))
     return render_template("login.html", form=form)
 
 
@@ -169,9 +169,7 @@ def logout():
 def show_post(post_id):
     requested_post = BlogPost.query.get(post_id)
     # comments
-    # all_comments = Comment.query.all()
-    required_comment = Comment.query.filter_by(comment_post_id=post_id)
-    print(required_comment)
+    required_comment = Comment.query.filter_by(comment_post_id=post_id).all()
     gravatar = Gravatar(app,
                         size=100,
                         rating='g',
@@ -194,7 +192,7 @@ def show_post(post_id):
             return redirect(url_for("show_post", post_id=post_id))
         else:
             flash("Please Log in before leaving a comment!")
-            return redirect(url_for("login", next=request.url))
+            return redirect(url_for("login", next_url=request.url))
     return render_template("post.html", post=requested_post, form=comment_form, required_comment=required_comment)
 
 
