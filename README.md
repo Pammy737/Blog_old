@@ -35,7 +35,7 @@ A simple blog that allows admin to create, edit, and delete posts ; and enable u
   * user   
     * post
       ![postuserlog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/homepage(userlog).png)
-    * posted a comment
+    * posted a comment (with the username below)
       ![commentusrelog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/leavedcomment(userlog).png) 
     * about page
       ![aboutuserlog](https://github.com/Pammy737/The_Blog/blob/main/readme_screenshots/aboutpage(userlog).png)
