@@ -47,9 +47,12 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(200), nullable=False)
 
     # User & Post
-    post = relationship("BlogPost", back_populates="author")
+    user = relationship("BlogPost", backref="author")
+    # post = relationship("BlogPost", back_populates="author")
+
     # User & Comment
-    comment = relationship("Comment", back_populates="commenter")
+    comment = relationship("Comment", backref="commenter")
+    # comment = relationship("Comment", back_populates="commenter")
 
 
 class BlogPost(db.Model):
@@ -57,8 +60,9 @@ class BlogPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # author = db.Column(db.String(250), nullable=False)
 
+    # User & Post
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    author = relationship("User", back_populates="post")  
+    # author = relationship("User", back_populate="post")
 
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
@@ -67,7 +71,9 @@ class BlogPost(db.Model):
     img_url = db.Column(db.String(250), nullable=False)
 
     # Post & Comments
-    post_comment = relationship("Comment", back_populates="comment_post")
+    post_comment = relationship("Comment", backref="comment_post")
+    # post_comment = relationship("Comment", back_populates="comment_post")
+
 
 
 class Comment(db.Model):
@@ -76,11 +82,11 @@ class Comment(db.Model):
 
     # User & Comments
     commenter_id = db.Column(db.Integer, ForeignKey("users.id"))
-    commenter = relationship("User", back_populates="comment")
+    # commenter = relationship("User", back_populates="comment")
 
     # Post & Comments
     comment_post_id = db.Column(db.Integer, ForeignKey("blog_posts.id"))
-    comment_post = relationship("BlogPost", back_populates="post_comment")
+    # comment_post = relationship("BlogPost", back_populates="post_comment")
 
     text = db.Column(db.String(250), nullable=False)
 
@@ -101,13 +107,14 @@ def admin_only(f):
 @app.route('/')
 def home():
     posts = BlogPost.query.all()
-    authors = [print(post.author) for post in posts]
     return render_template("index.html", all_posts=posts)
 
 
 @app.route('/register', methods=["GET", "POST"])
 def register():
     form = RegisterForm()
+    next = request.args.get("next")
+    next_url = request.args.get("next_url")
     if form.validate_on_submit():
         pwd = form.password.data
         new_user = User(
@@ -117,9 +124,7 @@ def register():
         )
         db.session.add(new_user)
         db.session.commit()
-        next_url=request.args.get("next_url")
-        print(f"I am on register page, url:{next_url}")
-        return redirect(url_for('login', next_url=next_url))
+        return redirect(url_for('login', next=next, next_url=next_url))
     return render_template("register.html", form=form)
 
 
@@ -128,6 +133,8 @@ def login():
     form = LoginForm()
     next = request.args.get("next")
     next_url = request.args.get("next_url")
+    # print(f"I am next {next}")
+    # print(f"I am next_url {next_url}")
     if form.validate_on_submit():
         user_login = User.query.filter_by(email=form.email.data).first()
         if user_login:
@@ -135,8 +142,7 @@ def login():
             if check_password_hash(pwhash=user_login.password, password=pwd):
                 flash("You've logged in!")
                 login_user(user=user_login)
-                print(f"I am next {next}")
-                print(f"I am next_url {next_url}")
+
                 # the ones with @login_required
                 if next:
                     return redirect(next)
@@ -149,7 +155,8 @@ def login():
                 return redirect(url_for('login'))
         else:
             flash("You're not our member yet! Please sign up first!")
-            return redirect(url_for('register', next_url=request.url))
+            # next_url=request.url
+            return redirect(url_for('register', next=next, next_url=next_url))
     return render_template("login.html", form=form)
 
 
