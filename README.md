@@ -81,7 +81,7 @@ A simple blog that allows admin to create, edit, and delete posts ; and enable u
 * ```back_populate``` vs ```backref```
 
   * ```back_populate```- useful when having multiple classes, easier to see relationships
-  * ```backref``` - able to avoid circular dependencies, recommended when only retrieving info from one end
+  * ```backref``` - able to avoid circular dependencies, recommended when retrieving info from one end
   
 * ```next``` parameter
   * ex - about page
